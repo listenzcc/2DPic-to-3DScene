@@ -92,8 +92,10 @@ def analysis_image(file_name):
     #
     for x in tqdm(range(0, depth_map.shape[0], down_sample), '{}'.format(down_sample)):
         for y in range(0, depth_map.shape[1], down_sample):
+            # points.append((x/down_sample, y/down_sample,
+            #                max(0, (depth_map[x, y]-20) * 10), _hex_rgb(img[x, y])))
             points.append((x/down_sample, y/down_sample,
-                           max(0, (depth_map[x, y]-20) * 10), _hex_rgb(img[x, y])))
+                           depth_map[x, y] * 4, _hex_rgb(img[x, y])))
 
     table = pd.DataFrame(points, columns=['x', 'y', 'depth', 'color'])
     table['size'] = 1
